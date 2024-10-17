@@ -6,7 +6,7 @@ inputs:
     description: 'Token to access the repository'
     required: true
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'index.js'
 branding:
   icon: 'shield'
