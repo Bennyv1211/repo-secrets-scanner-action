@@ -14,13 +14,27 @@ function runTruffleHog() {
         if (error) {
             console.error(`Error running TruffleHog:\n${stderr}`);
             console.error(`Full error details:\n${error}`);
+            // Write any errors to the output file for more debugging information
+            fs.writeFileSync('trufflehog-results.txt', `Error running TruffleHog:\n${stderr}`);
             process.exit(1);
         } else {
             console.log(`TruffleHog Results:\n${stdout}`);
 
-            // Write the output to a file named trufflehog-results.txt
-            fs.writeFileSync('trufflehog-results.txt', stdout);
-            console.log('Results saved to trufflehog-results.txt');
+            if (stdout && stdout.trim().length > 0) {
+                // Write the output to a file named trufflehog-results.txt if there's valid output
+                fs.writeFileSync('trufflehog-results.txt', stdout);
+                console.log('Results successfully saved to trufflehog-results.txt');
+            } else {
+                // Indicate that no secrets were found
+                fs.writeFileSync('trufflehog-results.txt', 'No secrets detected by TruffleHog.');
+                console.log('No secrets were detected by TruffleHog.');
+            }
+
+            // Log the directory content to verify the file is created
+            console.log('Current directory content after writing results:');
+            fs.readdirSync('.').forEach(file => {
+                console.log(file);
+            });
         }
     });
 }
