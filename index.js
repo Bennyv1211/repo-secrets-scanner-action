@@ -8,11 +8,12 @@ function runTruffleHog() {
 
     console.log(`Running TruffleHog in directory: ${repoPath}`);
 
-    // Run TruffleHog on the checked-out repository code in the current directory
-    exec(`trufflehog --json ${repoPath}`, (error, stdout, stderr) => {
+    // Try running TruffleHog without `--json` to see if that helps
+    exec(`trufflehog ${repoPath}`, (error, stdout, stderr) => {
         if (error) {
             console.error(`Error running TruffleHog:\n${stderr}`);
             console.error(`Full error details:\n${error}`);
+            console.error(`Standard Output:\n${stdout}`);
             process.exit(1);
         } else {
             console.log(`TruffleHog Results:\n${stdout}`);
