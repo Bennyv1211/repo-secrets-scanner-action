@@ -1,13 +1,6 @@
-name: 'Secrets Scanner Action (Node.js)'
-description: 'Scans repositories for secrets and sensitive data using TruffleHog.'
+name: 'Secrets Scanner Action'
+description: 'Scans repositories for secrets using TruffleHog'
 author: 'YourName'
-inputs:
-  github_token:
-    description: 'Token to access the repository'
-    required: true
 runs:
-  using: 'node20'
-  main: 'index.js'
-branding:
-  icon: 'shield'
-  color: 'blue'
+  using: 'node20'  # The version of Node.js to use
+  main: 'index.js' # This points to the main script
